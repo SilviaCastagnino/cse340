@@ -52,7 +52,7 @@ nav li {
 
 /*body*/
 #delorean {
-  background-color: rgba(173, 216, 230, 0.7);
+  background-color: rgba(228, 233, 234, 0.923);
   color: #008CBA;
   padding: 20px;
   border-radius: 10px;
@@ -76,6 +76,7 @@ nav li {
 
 #delorean li {
   font-size: 1.2em;
+  font-weight: bold;
 }
 
 picture img {
