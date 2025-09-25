@@ -19,4 +19,19 @@ invCont.buildByClassificationId = async function (req, res, next) {
     })
 }
 
+/* ***************************
+ *  Build inventory by details view
+ * ************************** */
+invCont.buildByDetailsId = async function (req, res, next) {
+    const details_id = req.params.detailsId
+    const data = await invModel.getInventoryByDetailsId(details_id)
+    const grid = await utilities.buildDetailsGrid(data)
+    let nav = await utilities.getNav()
+    res.render("./inventory/details", {
+        title: "Vehicle Details",
+        nav,
+        grid,
+    })
+}
+
 module.exports = invCont

@@ -125,6 +125,13 @@ nav li {
   font-weight: bold;
 }
 
+.veichles-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+}
+
+
 /*footer*/
 footer p {
   bottom: 0;
