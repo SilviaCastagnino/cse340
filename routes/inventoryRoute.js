@@ -21,5 +21,14 @@ router.post(
     managementValidate.checkAddClassification,
     utilities.handleErrors(managementController.addController)
 );
+// Route to add-invetory view
+router.get("/add-inventory", invController.buildAddInventoryView);
+// Route to add a new inventory in the DB
+router.post(
+    "/add-inventory",
+    managementValidate.addInventoryRules(),
+    managementValidate.checkAddInventory,
+    utilities.handleErrors(managementController.addInventory)
+);
 
 module.exports = router;

@@ -90,10 +90,23 @@ Util.buildManagementView = async function () {
     let grid = `
     <div class="management-view">
         <a href="./add-classification">Add New Classification</a>
-        <a href="#">Add New Inventory</a>
+        <a href="./add-inventory">Add New Inventory</a>
     </div>
     `
     return grid;
+}
+
+Util.getClassifications = async function () {
+    let classificationList = await invModel.getClassifications();
+    let classifications = `
+  <label for="classification">Choose a classification:</label>
+  <select id="classification" name="classification">
+  `
+    classificationList.rows.forEach(classification => {
+        classifications += `<option value="${classification["classification_id"]}" > ${classification["classification_name"]}</option>`
+  })
+    classifications += `</select>`
+  return classifications;
 }
 
 /* ****************************************
