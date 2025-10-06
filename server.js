@@ -17,6 +17,7 @@ const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities/")
 const account = require("./routes/accountRoute")
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 /* ***********************
  * View Engine and Templates
@@ -40,6 +41,7 @@ app.use(session({
   saveUninitialized: true,
   name: 'sessionId',
 }))
+app.use(cookieParser())
 // Express Messages Middleware
 app.use(require('connect-flash')())
 app.use(function (req, res, next) {
@@ -48,6 +50,7 @@ app.use(function (req, res, next) {
 })
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(utilities.checkJWTToken)
 
 /* ***********************
  * Routes
