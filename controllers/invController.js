@@ -34,4 +34,31 @@ invCont.buildByDetailsId = async function (req, res, next) {
     })
 }
 
+/* ***************************
+ *  Build management view
+ * ************************** */
+invCont.buildManagementView = async function (req, res, next) {
+    const grid = await utilities.buildManagementView()
+    let nav = await utilities.getNav()
+    res.render("./inventory/management", {
+        title: "Inventory Management",
+        nav,
+        grid,
+        message: null,
+    })
+}
+
+/* ***************************
+ *  Build add classification view
+ * ************************** */
+invCont.buildAddClassificationView = async function (req, res, next) {
+    let nav = await utilities.getNav()
+    res.render("./inventory/add-classification", {
+        title: "Add New Classification",
+        nav,
+        message: null,
+    })
+}
+
+
 module.exports = invCont
