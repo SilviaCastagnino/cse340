@@ -1,0 +1,55 @@
+<%# Title %>
+<% if(title) { %>
+<h1>
+<%= title %>
+</h1>
+<% } else { res.redirect('/') } %>
+<%# Message %>
+<%- errors %>
+<%# Body %>
+
+<div class="login-container">
+    <form action="/inv/edit-inventory" method="post" id="edit-inventory-form">
+        <div>
+            <label for="make_name" class="form-label">Make Name</label>
+            <input type="text" name="make_name" id="make_name" placeholder="Make Name" required>
+        </div>
+        <div>
+            <label for="model_name" class="form-label">Model Name</label>
+            <input type="text" name="model_name" id="model_name" placeholder="Model Name" required>
+        </div>
+        <div>
+            <label for="year" class="form-label">Year</label>
+            <input type="text" name="year" id="year" placeholder="Year" required>
+        </div>
+        <div>
+            <label for="description" class="form-label">Description</label>
+            <input type="text" name="description" id="description" placeholder="Description"
+                required>
+        </div>
+        <div>
+            <label for="img" class="form-label">Image</label>
+            <input type="text" name="img" id="img" placeholder="Image" required>
+        </div>
+        <div>
+            <label for="thumbnail" class="form-label">Thumbnail</label>
+            <input type="text" name="thumbnail" id="thumbnail" placeholder="Thumbnail" required>
+        </div>
+        <div>
+            <label for="price" class="form-label">Price</label>
+            <input type="text" name="price" id="price" placeholder="Price" required>
+        </div>
+        <div>
+            <label for="miles" class="form-label">Miles</label>
+            <input type="text" name="miles" id="miles" placeholder="Miles" required>
+        </div>
+        <div>
+            <label for="color" class="form-label">Color</label>
+            <input type="text" name="color" id="color" placeholder="Color" required>
+        </div>
+        <div>
+            <%- classification %>
+        </div>
+        <button type="submit" id="editInventory">Update Inventory</button>
+    </form>
+</div>
