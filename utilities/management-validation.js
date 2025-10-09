@@ -108,7 +108,7 @@ validate.addInventoryRules = () => {
             .withMessage("Pleas insert the right value"),
 
         // classification is required and must be string
-        body("classification")
+        body("classification_id")
             .trim()
             .escape()
             .notEmpty()
@@ -122,10 +122,43 @@ validate.checkAddInventory = async (req, res, next) => {
     errors = validationResult(req)
     if (!errors.isEmpty()) {
         let nav = await utilities.getNav()
+        const classificationSelect = await utilities.getClassifications()
         res.render("inventory/add-inventory", {
             title: "Add inventory view",
             nav,
             make_name,
+            classificationSelect
+        })
+        return
+    }
+    next()
+}
+
+validate.checkUpdateData = async (req, res, next) => {
+    const inv_id = parseInt(req.params.inv_id)
+    let errors = []
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        const itemData = await invModel.getInventoryByDetailsId(inv_id)
+        const itemName = `${itemData[0].inv_make} ${itemData[0].inv_model}`
+        let classification = await utilities.getClassifications()
+        let nav = await utilities.getNav()
+        res.render("inventory/edit-inventory", {
+            title: "Edit " + itemName,
+            nav,
+            classification: classification,
+            errors: null,
+            inv_id: itemData[0].inv_id,
+            inv_make: itemData[0].inv_make,
+            inv_model: itemData[0].inv_model,
+            inv_year: itemData[0].inv_year,
+            inv_description: itemData[0].inv_description,
+            inv_image: itemData[0].inv_image,
+            inv_thumbnail: itemData[0].inv_thumbnail,
+            inv_price: itemData[0].inv_price,
+            inv_miles: itemData[0].inv_miles,
+            inv_color: itemData[0].inv_color,
+            classification_id: itemData[0].classification_id
         })
         return
     }

@@ -8,9 +8,8 @@ Content Heading
 <% } else { res.redirect('/') } %>
 
 <%- message %>
+<%- grid %>
 <div class="management-view">
-    <a href="./add-classification">Add New Classification</a>
-    <a href="./add-inventory">Add New Inventory</a>
     <h2>Manage Inventory</h2>
     <p>Please select a classification from the list below to view the items that belong to it.</p>
     <%- classificationSelect %>

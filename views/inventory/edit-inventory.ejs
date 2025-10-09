@@ -9,47 +9,49 @@
 <%# Body %>
 
 <div class="login-container">
-    <form action="/inv/edit-inventory" method="post" id="edit-inventory-form">
+    <form action="/inv/update" method="post" id="edit-inventory-form">
         <div>
-            <label for="make_name" class="form-label">Make Name</label>
-            <input type="text" name="make_name" id="make_name" placeholder="Make Name" required>
+            <label for="inv_make" class="form-label">Make Name</label>
+            <input type="text" name="inv_make" id="inv_make" placeholder="Make Name" required>
         </div>
         <div>
-            <label for="model_name" class="form-label">Model Name</label>
-            <input type="text" name="model_name" id="model_name" placeholder="Model Name" required>
+            <label for="inv_model" class="form-label">Model Name</label>
+            <input type="text" name="inv_model" id="inv_model" placeholder="Model Name" required>
         </div>
         <div>
-            <label for="year" class="form-label">Year</label>
-            <input type="text" name="year" id="year" placeholder="Year" required>
+            <label for="inv_year" class="form-label">Year</label>
+            <input type="text" name="inv_year" id="inv_year" placeholder="Year" required>
         </div>
         <div>
-            <label for="description" class="form-label">Description</label>
-            <input type="text" name="description" id="description" placeholder="Description"
+            <label for="inv_description" class="form-label">Description</label>
+            <input type="text" name="inv_description" id="inv_description" placeholder="Description"
                 required>
         </div>
         <div>
-            <label for="img" class="form-label">Image</label>
-            <input type="text" name="img" id="img" placeholder="Image" required>
+            <label for="inv_image" class="form-label">Image</label>
+            <input type="text" name="inv_image" id="inv_image" placeholder="Image" required>
         </div>
         <div>
-            <label for="thumbnail" class="form-label">Thumbnail</label>
-            <input type="text" name="thumbnail" id="thumbnail" placeholder="Thumbnail" required>
+            <label for="inv_thumbnail" class="form-label">Thumbnail</label>
+            <input type="text" name="inv_thumbnail" id="inv_thumbnail" placeholder="Thumbnail" required>
         </div>
         <div>
-            <label for="price" class="form-label">Price</label>
-            <input type="text" name="price" id="price" placeholder="Price" required>
+            <label for="inv_price" class="form-label">Price</label>
+            <input type="text" name="inv_price" id="inv_price" placeholder="Price" required>
         </div>
         <div>
-            <label for="miles" class="form-label">Miles</label>
-            <input type="text" name="miles" id="miles" placeholder="Miles" required>
+            <label for="inv_miles" class="form-label">Miles</label>
+            <input type="text" name="inv_miles" id="inv_miles" placeholder="Miles" required>
         </div>
         <div>
-            <label for="color" class="form-label">Color</label>
-            <input type="text" name="color" id="color" placeholder="Color" required>
+            <label for="inv_color" class="form-label">Color</label>
+            <input type="text" name="inv_color" id="inv_color" placeholder="Color" required>
         </div>
         <div>
-            <%- classification %>
+            <%- classificationSelect %>
         </div>
         <button type="submit" id="editInventory">Update Inventory</button>
+        <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+            <% } %>>
     </form>
 </div>
