@@ -9,7 +9,7 @@
 <%# Body %>
 
 <div class="login-container">
-    <form action="/inv/update" method="post" id="edit-inventory-form">
+    <form action="/inv/update" method="post" id="updateForm">
         <div>
             <label for="inv_make" class="form-label">Make Name</label>
             <input type="text" name="inv_make" id="inv_make" placeholder="Make Name" required>
@@ -50,8 +50,10 @@
         <div>
             <%- classificationSelect %>
         </div>
-        <button type="submit" id="editInventory">Update Inventory</button>
+        <button type="submit" id="editInventory" disabled>Update Inventory</button>
         <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
             <% } %>>
     </form>
 </div>
+
+<script src="../../js/inv-update.js"></script>
