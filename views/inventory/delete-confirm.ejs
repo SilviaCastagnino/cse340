@@ -1,0 +1,65 @@
+<%# Title %>
+<% if(title) { %>
+<h1>
+<%= title %>
+</h1>
+<% } else { res.redirect('/') } %>
+<%# Message %>
+<%- message %>
+<%# Body %>
+
+<div class="login-container">
+    <form action="/inv/confirm-delete" method="post">
+        <div>
+            <label for="inv_make" class="form-label">Make Name</label>
+            <input type="text" name="inv_make" id="inv_make" class="form-input"
+                value="<%=locals.inv_make %>" readonly>
+        </div>
+        <div>
+            <label for="inv_model" class="form-label">Model Name</label>
+            <input type="text" name="inv_model" id="inv_model" class="form-input"
+                value="<%=locals.inv_model %>" readonly>
+        </div>
+        <div>
+            <label for="inv_year" class="form-label">Year</label>
+            <input type="text" name="inv_year" id="inv_year" class="form-input"
+                value="<%=locals.inv_year %>" readonly>
+        </div>
+        <div>
+            <label for="inv_description" class="form-label">Description</label>
+            <input type="text" name="inv_description" id="inv_description" class="form-input"
+                value="<%=locals.inv_description %>" readonly>
+        </div>
+        <div>
+            <label for="inv_image" class="form-label">Image</label>
+            <input type="text" name="inv_image" id="inv_image" class="form-input"
+                value="<%=locals.inv_image %>" readonly>
+        </div>
+        <div>
+            <label for="inv_thumbnail" class="form-label">Thumbnail</label>
+            <input type="text" name="inv_thumbnail" id="inv_thumbnail" class="form-input"
+                value="<%=locals.inv_thumbnail %>" readonly>
+        </div>
+        <div>
+            <label for="inv_price" class="form-label">Price</label>
+            <input type="text" name="inv_price" id="inv_price" class="form-input"
+                value="<%=locals.inv_price %>" readonly>
+        </div>
+        <div>
+            <label for="inv_miles" class="form-label">Miles</label>
+            <input type="text" name="inv_miles" id="inv_miles" class="form-input"
+                value="<%=locals.inv_miles %>" readonly>
+        </div>
+        <div>
+            <label for="inv_color" class="form-label">Color</label>
+            <input type="text" name="inv_color" id="inv_color" class="form-input"
+                value="<%=locals.inv_color %>" readonly>
+        </div>
+        <div>
+            <label for="inv_id" class="form-label">Id</label>
+            <input type="text" name="inv_id" id="inv_id" class="form-input"
+                value="<%=locals.inv_id %>" readonly>
+        </div>
+        <button id="deleteInventory" type="submit">Delete inventory</button>
+    </form>
+</div>

@@ -178,4 +178,56 @@ invCont.updateInventory = async function (req, res, next) {
     }
 }
 
+/* *********
+ *  Build delete-inventory view
+ * ********** */
+invCont.deleteInventoryView = async function (req, res, next) {
+    const inv_id = parseInt(req.params.inv_id)
+    let nav = await utilities.getNav()
+    const itemData = await invModel.getInventoryByDetailsId(inv_id)
+    const itemName = `${itemData[0].inv_make} ${itemData[0].inv_model}`
+    // let classification = await utilities.getClassifications()
+    res.render("./inventory/delete-confirm", {
+        title: "Delete " + itemName,
+        message: null,
+        nav,
+        inv_id: itemData[0].inv_id,
+        inv_make: itemData[0].inv_make,
+        inv_model: itemData[0].inv_model,
+        inv_year: itemData[0].inv_year,
+        inv_description: itemData[0].inv_description,
+        inv_image: itemData[0].inv_image,
+        inv_thumbnail: itemData[0].inv_thumbnail,
+        inv_price: itemData[0].inv_price,
+        inv_miles: itemData[0].inv_miles,
+        inv_color: itemData[0].inv_color,
+        classification_id: itemData[0].classification_id
+    })
+}
+
+/* *********
+ *  Build delete-inventory action
+ * ********** */
+invCont.confirmDeleteInventory = async function (req, res, next) {
+    const inv_id = req.body
+    let nav = await utilities.getNav()
+    const itemData = await invModel.getInventoryByDetailsId(inv_id["inv_id"])
+    const itemName = `${itemData[0].inv_make} ${itemData[0].inv_model}`
+    const updateResult = await invModel.deleteInventoryItem(inv_id["inv_id"])
+
+    if (updateResult) {
+        req.flash("notice", `The ${itemName} was successfully deleted.`)
+        res.redirect("/inv/management")
+    } else {
+        const classification = await utilities.getClassifications()
+        req.flash("notice", "Sorry, the Delete failed.")
+        res.status(501).render("./inventory/delete-confirm", {
+            title: "Delete " + itemName,
+            message: null,
+            nav
+        })
+    }
+
+}
+
 module.exports = invCont
