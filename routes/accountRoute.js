@@ -38,5 +38,7 @@ router.post(
     regValidate.checkChangePasswordData,
     utilities.handleErrors(accountController.changePassword)
 )
+// Route to users list
+router.get("/user-list", utilities.checkPermissionUserList, utilities.handleErrors(accountController.userList))
 
 module.exports = router;

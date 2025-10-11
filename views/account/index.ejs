@@ -11,4 +11,7 @@
 <% if(type=="Employee" || type=="Admin" ) { %>
 <h3><a href="/inv/management">Inventory Management</a></h3>
 <% } %>
+<% if(type=="Admin" ) { %>
+<h3><a href="/account/user-list">Users list</a></h3>
+<% } %>
 <h3><a href="/account/edit-account">Edit Account Information</a></h3>

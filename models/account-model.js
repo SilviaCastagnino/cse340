@@ -69,5 +69,19 @@ async function updatePassword(account_id, account_password) {
     }
 }
 
-module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, updateAccount, updatePassword };
+/* ***********
+*   Update password
+* ********* */
+async function getUserList() {
+    try {
+        const result = await pool.query(
+            "SELECT account_firstname, account_lastname, account_email, account_type FROM public.account",
+            [])
+        return result.rows
+    } catch (error) {
+        return error.message
+    }
+}
+
+module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, updateAccount, updatePassword, getUserList };
 

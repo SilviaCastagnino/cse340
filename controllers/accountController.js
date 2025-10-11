@@ -219,4 +219,19 @@ async function changePassword(req, res) {
   }
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccount, accountLogout, accountEdit, editAccount, changePassword }
+/* **************
+ *  Deliver users list view
+ * ************ */
+async function userList(req, res, next) {
+  let nav = await utilities.getNav()
+  let data = await accountModel.getUserList()
+  const grid = utilities.getUserList(data)
+  res.render("account/user-list", {
+    title: "Account List",
+    nav,
+    message: null,
+    grid
+  })
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccount, accountLogout, accountEdit, editAccount, changePassword, userList }

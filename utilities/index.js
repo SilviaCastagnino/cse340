@@ -168,4 +168,45 @@ Util.checkPermission = (req, res, next) => {
     }
 }
 
+/* **************
+*  Check permisson for the users list
+* ************ */
+Util.checkPermissionUserList = (req, res, next) => {
+    if (res.locals.accountData.account_type === 'Admin') {
+        next()
+    } else {
+        req.flash("notice", "You are not authorized.")
+        return res.redirect("/")
+    }
+}
+
+/* **************
+*  Get the users list
+* ************ */
+Util.getUserList = (data) => {
+    let grid = `
+    <table>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Type</th>
+      <tr>
+  `
+    data.forEach(user => {
+        grid += `
+      <tr>
+        <td>${user.account_firstname}</td>
+        <td>${user.account_lastname}</td>
+        <td>${user.account_email}</td>
+        <td>${user.account_type}</td>
+      </tr>
+    `
+    })
+    grid += `
+    </table>
+  `
+    return grid
+}
+
 module.exports = Util
