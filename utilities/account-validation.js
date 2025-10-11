@@ -122,4 +122,42 @@ validate.checkLogData = async (req, res, next) => {
     next()
 }
 
+/*  ************
+*  Edit Password validation
+* *********** */
+validate.changePasswordRules = () => {
+    return [
+        body("account_password")
+        .trim()
+        .notEmpty()
+        .isStrongPassword({
+            minLength: 12,
+            minLowercase: 1,
+            minUppercase: 1,
+            minNumbers: 1,
+            minSymbols: 1,
+        })
+        .withMessage("Password does not meet requirements."),
+    ]
+}
+
+/* **********
+* Check data and return errors or continue to change password
+* *********** */
+validate.checkChangePasswordData = async (req, res, next) => {
+    let errors = []
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        res.render("account/index", {
+            title: "Account",
+            nav,
+            name: res.locals.accountData.account_firstname,
+            type: res.locals.accountData.account_type
+        })
+        return
+    }
+    next()
+}
+
 module.exports = validate

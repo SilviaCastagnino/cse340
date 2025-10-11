@@ -130,8 +130,93 @@ async function buildAccount(req, res, next) {
   res.render("account/index", {
     title: "Account",
     nav,
-    message: null
+    message: null,
+    name: res.locals.accountData.account_firstname,
+    type: res.locals.accountData.account_type
   })
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccount }
+/* **************
+ *  Logout process
+ * ************ */
+async function accountLogout(req, res) {
+  res.clearCookie("jwt")
+  res.redirect("/")
+}
+
+/* **************
+ *  Deliver edit account view
+ * ************ */
+async function accountEdit(req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("account/edit-account", {
+    title: "Edit Account",
+    nav,
+    message: null,
+    firstname: res.locals.accountData.account_firstname,
+    lastname: res.locals.accountData.account_lastname,
+    email: res.locals.accountData.account_email
+  })
+}
+
+/* **************
+ *  Edit process
+ * ************ */
+async function editAccount(req, res, next) {
+  const { acc_firstname, acc_lastname, acc_email } = req.body
+  const editResult = await accountModel.updateAccount(res.locals.accountData.account_id, acc_firstname, acc_lastname, acc_email)
+  let nav = await utilities.getNav()
+  if (editResult) {
+    req.flash(
+      "notice",
+     " Account modified succesfully"
+    )
+    res.status(201).render("account/index", {
+      title: "Account",
+      nav,
+      message: "Account modified succesfully",
+      name: acc_firstname,
+      type: res.locals.accountData.account_type
+    })
+  } else {
+    req.flash("notice", "Sorry, something went wrong.")
+    res.status(501).render("account/index", {
+      title: "Account",
+      nav,
+      message: "Somenthing went wrong",
+      name: res.locals.accountData.account_firstname,
+      type: res.locals.accountData.account_type
+    })
+  }
+}
+
+/* **************
+ *  Change password process
+ * ************ */
+async function changePassword(req, res) {
+  const { account_password } = req.body
+  const account_id = res.locals.accountData.account_id
+  let hashedPassword
+  try {
+    hashedPassword = await bcrypt.hashSync(account_password, 10)
+  } catch (error) {
+    req.flash("notice", 'Sorry, there was an error processing the registration.')
+    res.status(500).render("account/index", {
+      title: "Account",
+      nav,
+      message: "Somenthing went wrong",
+      name: res.locals.accountData.account_firstname,
+      type: res.locals.accountData.account_type
+    })
+  }
+  const changePasswordResult = await accountModel.updatePassword(account_id, hashedPassword)
+  if (changePasswordResult) {
+    req.flash("notice", "Password updated successfully")
+    res.status(201).redirect("/account/")
+  } else {
+    req.flash("notice", "Password update failed")
+    res.status(501).redirect("/account/")
+  }
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccount, accountLogout, accountEdit, editAccount, changePassword }

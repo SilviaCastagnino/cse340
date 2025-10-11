@@ -1,0 +1,42 @@
+<%# Title %>
+    <% if(title) { %>
+<h1>
+<%= title %>
+</h1>
+<% } else { res.redirect('/') } %>
+<%# Message %>
+<%- message %>
+<%# Body %>
+<div class="login-container">
+    <form action="/account/edit-account" method="post" id="edit-account-form" class="login">
+        <div>
+            <label for="acc_firstname" class="form-label">Account First Name</label>
+            <input type="text" name="acc_firstname" id="acc_firstname" class="form-input"
+                value="<%- firstname %>" required>
+        </div>
+        <div>
+            <label for="acc_lastname" class="form-label">Account Last Name</label>
+            <input type="text" name="acc_lastname" id="acc_lastname" class="form-input"
+                value="<%- lastname %>" required>
+        </div>
+        <div>
+            <label for="acc_email" class="form-label">Account Email</label>
+            <input type="email" name="acc_email" id="acc_email" class="form-input"
+                value="<%- email %>" required>
+        </div>
+        <button type="submit" class="login-button" id="editAccount">Edit account</button>
+    </form>
+</div>
+<div class="login-container">
+    <form action="/account/edit-password" method="post" id="edit-account-form" class="login">
+        <div>
+            <label for="account_password" class="form-label">Password</label>
+            <span>Passwords must be at least 12 characters and contain at least 1 number, 1
+                capital letter and 1 special character</span>
+            <input type="password" name="account_password" id="account_password"
+                class="form-input" placeholder="Enter your password"
+                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required>
+        </div>
+        <button type="submit" id="editPassword">Edit Password</button>
+    </form>
+</div>
